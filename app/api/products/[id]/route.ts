@@ -27,6 +27,7 @@ export async function GET(
 
     return NextResponse.json(fixedData);
   } catch (error) {
+    console.error('❌ Error fetching product by ID:', error); // ✅ Now error is used
     return NextResponse.json({ error: 'Failed to fetch product' }, { status: 500 });
   }
 }

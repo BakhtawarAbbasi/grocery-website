@@ -5,13 +5,11 @@ import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
-import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cart } = useCart();
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  const router = useRouter();
 
   return (
     <header className="bg-white shadow-md">

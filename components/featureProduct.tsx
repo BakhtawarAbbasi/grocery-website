@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image'; // ✅ Import Next.js optimized Image component
 
 type Category =
   | 'Tea'
@@ -77,29 +78,26 @@ const FeaturedProducts: React.FC = () => {
 
     setShowSuccess(true);
 
-    //  Reset timer if already exists
     if ((window as any).successTimer) {
       clearTimeout((window as any).successTimer);
     }
 
-    //  Set new timer
     (window as any).successTimer = setTimeout(() => setShowSuccess(false), 3000);
 
-    //  Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="py-12 px-6 lg:px-40">
-      {/*  Success Message */}
+    <div className="px-6 py-12 lg:px-40">
+      {/* ✅ Success Message */}
       {showSuccess && (
-        <div className="mb-6 bg-green-100 border border-green-300 text-green-800 text-sm font-medium px-4 py-2 rounded shadow-sm text-center animate-fade-in">
-           Item added to cart successfully!
+        <div className="px-4 py-2 mb-6 text-sm font-medium text-center text-green-800 bg-green-100 border border-green-300 rounded shadow-sm animate-fade-in">
+          Item added to cart successfully!
         </div>
       )}
 
-      {/*  Category Filter */}
-      <div className="bg-black rounded-lg p-6 flex justify-center gap-6 mb-10 flex-wrap">
+      {/* ✅ Category Filter */}
+      <div className="flex flex-wrap justify-center gap-6 p-6 mb-10 bg-black rounded-lg">
         {categories.map((cat, index) => (
           <div
             key={index}
@@ -108,40 +106,48 @@ const FeaturedProducts: React.FC = () => {
               selectedCategory === cat.name ? 'scale-105' : 'opacity-80'
             }`}
           >
-            <div className="w-16 h-16 rounded-full bg-white p-2 flex items-center justify-center shadow-md">
-              <img src={cat.image} alt={cat.name} className="w-10 h-10 object-contain" />
+            <div className="flex items-center justify-center w-16 h-16 p-2 bg-white rounded-full shadow-md">
+              <Image
+                src={cat.image}
+                alt={cat.name}
+                width={40}
+                height={40}
+                className="object-contain w-10 h-10"
+              />
             </div>
-            <span className="text-white text-sm mt-2 text-center">{cat.name}</span>
+            <span className="mt-2 text-sm text-center text-white">{cat.name}</span>
           </div>
         ))}
       </div>
 
-      {/*  Section Headings */}
-      <h4 className="text-center text-lg font-bold text-green-600">Our Products</h4>
-      <h2 className="text-center text-3xl font-bold mb-8">Featured Products</h2>
+      {/* ✅ Section Headings */}
+      <h4 className="text-lg font-bold text-center text-green-600">Our Products</h4>
+      <h2 className="mb-8 text-3xl font-bold text-center">Featured Products</h2>
 
-      {/* Product Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {/* ✅ Product Grid */}
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredProducts.map((product) => (
           <div
             key={product.id}
-            className="border rounded-xl p-4 shadow-md hover:shadow-lg transition duration-300 bg-white relative"
+            className="relative p-4 transition duration-300 bg-white border shadow-md rounded-xl hover:shadow-lg"
           >
             <div
               onClick={() => router.push(`/product/${product.id}`)}
               className="cursor-pointer"
             >
-              <div className="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">
+              <div className="absolute px-2 py-1 text-xs font-bold text-white bg-green-600 rounded top-2 left-2">
                 Sale
               </div>
 
-              <img
+              <Image
                 src={product.image}
                 alt={product.productName}
-                className="w-full h-40 object-cover rounded-lg mb-4"
+                width={400}
+                height={160}
+                className="object-cover w-full h-40 mb-4 rounded-lg"
               />
 
-              <h3 className="text-md font-semibold mb-1">{product.productName}</h3>
+              <h3 className="mb-1 font-semibold text-md">{product.productName}</h3>
 
               <div className="flex items-center mb-2">
                 {[...Array(5)].map((_, i) => (
@@ -157,9 +163,9 @@ const FeaturedProducts: React.FC = () => {
                 ))}
               </div>
 
-              <div className="flex gap-2 items-center mb-4">
-                <span className="text-green-600 font-bold">{product.price}</span>
-                <span className="line-through text-gray-400 text-sm">{product.oldPrice}</span>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="font-bold text-green-600">{product.price}</span>
+                <span className="text-sm text-gray-400 line-through">{product.oldPrice}</span>
               </div>
             </div>
 
@@ -168,7 +174,7 @@ const FeaturedProducts: React.FC = () => {
                 e.stopPropagation();
                 handleAddToCart(product);
               }}
-              className="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 transition"
+              className="w-full py-2 text-white transition bg-green-700 rounded hover:bg-green-800"
             >
               🛒 Add to Cart
             </button>

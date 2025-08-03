@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Star, Minus, Plus } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import Image from 'next/image';
 
 interface Product {
   id: number;
@@ -62,16 +63,16 @@ export default function ProductDetailPage() {
     setTimeout(() => setShowSuccess(false), 3000);
   };
 
-  if (!product) return <div className="text-center py-10">Loading...</div>;
+  if (!product) return <div className="py-10 text-center">Loading...</div>;
 
   const ratingValue = parseFloat(product.rating);
   const fullStars = Math.floor(ratingValue);
   const hasHalfStar = ratingValue % 1 >= 0.5;
 
   return (
-    <section className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <section className="container px-4 py-12 mx-auto sm:px-6 lg:px-8">
       {/* ✅ Animated Success Message */}
-      <div className="h-10 relative">
+      <div className="relative h-10">
         <div
           className={`absolute left-1/2 -translate-x-1/2 transition-all duration-500 ease-in-out
             ${showSuccess ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3 pointer-events-none'}
@@ -81,24 +82,27 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-12">
-        {/* Product Image */}
+      <div className="flex flex-col gap-12 lg:flex-row">
+        {/* ✅ Product Image */}
         <div className="w-full lg:w-1/2">
-          <div className="bg-white rounded-2xl shadow-md overflow-hidden p-6">
-            <div className="aspect-square w-full bg-gray-50 flex items-center justify-center">
-              <img
+          <div className="p-6 overflow-hidden bg-white shadow-md rounded-2xl">
+            <div className="flex items-center justify-center w-full aspect-square bg-gray-50">
+              <Image
                 src={product.image}
                 alt={product.productName}
+                width={500}
+                height={500}
                 className="w-full h-full object-contain max-h-[450px] rounded-xl transition-transform duration-300 hover:scale-105"
+                priority
               />
             </div>
           </div>
         </div>
 
-        {/* Product Details */}
-        <div className="w-full lg:w-1/2 space-y-6">
+        {/* ✅ Product Details */}
+        <div className="w-full space-y-6 lg:w-1/2">
           <div>
-            <span className="text-sm font-semibold text-green-700 bg-green-100 px-3 py-1 rounded-full uppercase tracking-wide">
+            <span className="px-3 py-1 text-sm font-semibold tracking-wide text-green-700 uppercase bg-green-100 rounded-full">
               {product.category}
             </span>
             <h1 className="mt-3 text-4xl font-bold text-gray-900">
@@ -106,7 +110,7 @@ export default function ProductDetailPage() {
             </h1>
           </div>
 
-          <p className="text-gray-600 text-base leading-relaxed">
+          <p className="text-base leading-relaxed text-gray-600">
             {product.description}
           </p>
 
@@ -125,24 +129,24 @@ export default function ProductDetailPage() {
                 }`}
               />
             ))}
-            <span className="text-sm text-gray-500 ml-2">
+            <span className="ml-2 text-sm text-gray-500">
               {ratingValue.toFixed(1)}
             </span>
           </div>
 
-          {/* Quantity + Cart */}
+          {/* ✅ Quantity + Cart */}
           <div className="flex items-center gap-4 mt-4">
-            <div className="flex items-center gap-2 border border-gray-300 px-3 py-2 rounded-md">
+            <div className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="text-gray-600 hover:text-green-700 transition"
+                className="text-gray-600 transition hover:text-green-700"
               >
                 <Minus className="w-4 h-4" />
               </button>
               <span className="px-2 text-sm font-medium">{quantity}</span>
               <button
                 onClick={() => setQuantity((q) => q + 1)}
-                className="text-gray-600 hover:text-green-700 transition"
+                className="text-gray-600 transition hover:text-green-700"
               >
                 <Plus className="w-4 h-4" />
               </button>
@@ -150,11 +154,11 @@ export default function ProductDetailPage() {
 
             <button
               onClick={handleAddToCart}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white transition bg-green-600 rounded-md hover:bg-green-700"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
+                className="w-4 h-4"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >

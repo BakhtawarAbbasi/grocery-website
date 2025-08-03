@@ -37,7 +37,12 @@ export default function CartPage() {
             </svg>
           </div>
           <h2 className="mb-2 text-2xl font-medium text-gray-700">Your cart is empty</h2>
-          <p className="mb-6 text-gray-500">Looks like you haven't added anything to your cart yet</p>
+
+          {/* ✅ Apostrophe fixed here */}
+          <p className="mb-6 text-gray-500">
+            Looks like you haven&apos;t added anything to your cart yet
+          </p>
+
           <button
             onClick={() => router.push('/shop')}
             className="px-6 py-3 text-white transition bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg"
@@ -47,7 +52,7 @@ export default function CartPage() {
         </div>
       ) : (
         <div className="flex flex-col gap-8 lg:flex-row">
-          {/* Cart Items */}
+          {/* ✅ Cart Items */}
           <div className="w-full overflow-hidden bg-white border border-gray-100 shadow-sm lg:w-2/3 rounded-xl">
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
@@ -126,7 +131,7 @@ export default function CartPage() {
             ))}
           </div>
 
-          {/* Order Summary */}
+          {/* ✅ Order Summary */}
           <div className="w-full lg:w-1/3">
             <div className="sticky p-6 bg-white border border-gray-100 shadow-sm rounded-xl top-6">
               <h2 className="mb-6 text-xl font-semibold text-gray-800">Order Summary</h2>
