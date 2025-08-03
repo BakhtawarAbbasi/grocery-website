@@ -3,7 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image'; // ✅ Import Next.js optimized Image component
+import Image from 'next/image';
+
+// ✅ Extend the Window interface globally
+declare global {
+  interface Window {
+    successTimer?: ReturnType<typeof setTimeout>;
+  }
+}
 
 type Category =
   | 'Tea'
@@ -78,11 +85,12 @@ const FeaturedProducts: React.FC = () => {
 
     setShowSuccess(true);
 
-    if ((window as any).successTimer) {
-      clearTimeout((window as any).successTimer);
+    // ✅ use properly typed window.successTimer instead of `any`
+    if (window.successTimer) {
+      clearTimeout(window.successTimer);
     }
 
-    (window as any).successTimer = setTimeout(() => setShowSuccess(false), 3000);
+    window.successTimer = setTimeout(() => setShowSuccess(false), 3000);
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

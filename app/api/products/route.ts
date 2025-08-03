@@ -8,7 +8,8 @@ export async function GET() {
 
     const data = await res.json();
     return NextResponse.json(data);
-  } catch (_) {   // ✅ underscore tells ESLint we’re intentionally ignoring it
+  } catch (error) {
+    console.error('❌ Error fetching products:', error); // ✅ ESLint happy + helpful logs
     return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
   }
 }
