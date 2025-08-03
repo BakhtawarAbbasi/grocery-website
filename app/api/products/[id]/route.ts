@@ -1,33 +1,39 @@
-// app/api/product/[id]/route.ts
-import { NextResponse } from 'next/server';
+// app/api/products/[id]/route.ts
+import { NextResponse } from "next/server";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params; // ✅ yahan se params destructure kiya
 
   try {
-    const res = await fetch(`https://api-for-ecommerce-website.onrender.com/products/${id}`, {
-      cache: 'no-store',
-    });
+    const res = await fetch(
+      `https://api-for-ecommerce-website.onrender.com/products/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
 
     if (!res.ok) {
-      return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
     const data = await res.json();
 
     const fixedData = {
       ...data,
-      image: data.image.startsWith('http')
+      image: data.image.startsWith("http")
         ? data.image
         : `https://api-for-ecommerce-website.onrender.com${data.image}`,
     };
 
     return NextResponse.json(fixedData);
   } catch (error) {
-    console.error('❌ Error fetching product by ID:', error); // ✅ Now error is used
-    return NextResponse.json({ error: 'Failed to fetch product' }, { status: 500 });
+    console.error("❌ Error fetching product by ID:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch product" },
+      { status: 500 }
+    );
   }
 }
