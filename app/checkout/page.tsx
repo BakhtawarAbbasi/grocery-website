@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import html2pdf from "html2pdf.js";
+// import html2pdf from "html2pdf.js";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 
@@ -109,39 +109,43 @@ export default function CheckoutPage() {
     }
   };
 
-  const handleDownload = async () => {
-    const isValid = validateForm();
-    if (!isValid) return;
+ const handleDownload = async () => {
+  const isValid = validateForm();
+  if (!isValid) return;
 
-    await sendOrderToBackend();
+  await sendOrderToBackend();
 
-    const element = document.getElementById("invoice");
-    if (!element) return;
+  const element = document.getElementById("invoice");
+  if (!element) return;
 
-    element.style.visibility = "visible";
-    element.style.position = "static";
-    element.style.left = "0";
+  element.style.visibility = "visible";
+  element.style.position = "static";
+  element.style.left = "0";
 
-    setTimeout(() => {
-      const opt = {
-        margin: 0.5,
-        filename: `order-slip-${invoiceNo}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-      };
-      html2pdf()
-        .from(element)
-        .set(opt)
-        .save()
-        .then(() => {
-          element.style.visibility = "hidden";
-          element.style.position = "absolute";
-          element.style.left = "-9999px";
-          setShowModal(true);
-        });
-    }, 300);
-  };
+  // ✅ Yahan html2pdf dynamically import hoga
+  const html2pdf = (await import("html2pdf.js")).default;
+
+  setTimeout(() => {
+    const opt = {
+      margin: 0.5,
+      filename: `order-slip-${invoiceNo}.pdf`,
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    };
+    html2pdf()
+      .from(element)
+      .set(opt)
+      .save()
+      .then(() => {
+        element.style.visibility = "hidden";
+        element.style.position = "absolute";
+        element.style.left = "-9999px";
+        setShowModal(true);
+      });
+  }, 300);
+};
+
 
   return (
     <div className="min-h-screen px-4 py-12 bg-gradient-to-br from-gray-50 to-gray-100">
