@@ -262,6 +262,8 @@ export default function CheckoutPage() {
                 <Image
                   src="/images/logo.jpg"
                   alt="Logo"
+                  width={64}
+                  height={64}
                   className="object-cover w-full h-full"
                 />
               </div>
