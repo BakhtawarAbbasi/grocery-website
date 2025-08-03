@@ -34,7 +34,7 @@ export default function CheckoutPage() {
   }, [cart]);
 
   const validateForm = () => {
-    const newErrors: any = {};
+    const newErrors: Record<string, string> = {};
     if (!firstName) newErrors.firstName = "First name is required";
     if (!lastName) newErrors.lastName = "Last name is required";
     if (!address) newErrors.address = "Address is required";
@@ -359,6 +359,8 @@ export default function CheckoutPage() {
           <Image
             src="/images/logo.jpg"
             alt="Logo"
+            width={64}
+            height={64}
             style={{ width: "100px", height: "auto" }}
           />
         </div>
