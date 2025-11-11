@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from 'next/image';
@@ -16,57 +17,52 @@ export default function CartPage() {
   }, [cart]);
 
   return (
-    <div className="container px-4 py-12 mx-auto max-w-7xl">
+    <div className="px-4 py-12 mx-auto max-w-7xl bg-[#FAF5FF] min-h-screen">
       <div className="flex items-center mb-8">
         <button
           onClick={() => router.back()}
-          className="p-2 mr-4 transition rounded-full hover:bg-gray-100"
+          className="p-2 mr-4 transition rounded-full hover:bg-[#EDE9FE]"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-[#581C87]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <h1 className="text-3xl font-bold text-gray-800">Your Shopping Cart</h1>
+        <h1 className="text-3xl font-bold text-[#1F2937]">Your Shopping Cart</h1>
       </div>
 
       {cart.length === 0 ? (
         <div className="py-16 text-center">
-          <div className="flex items-center justify-center w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="flex items-center justify-center w-24 h-24 mx-auto mb-4 bg-[#EDE9FE] rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 text-[#9333EA]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <h2 className="mb-2 text-2xl font-medium text-gray-700">Your cart is empty</h2>
-
-          {/* ✅ Apostrophe fixed here */}
-          <p className="mb-6 text-gray-500">
-            Looks like you haven&apos;t added anything to your cart yet
-          </p>
-
+          <h2 className="mb-2 text-2xl font-medium text-[#581C87]">Your cart is empty</h2>
+          <p className="mb-6 text-gray-500">Looks like you have not added anything to your cart yet</p>
           <button
             onClick={() => router.push('/shop')}
-            className="px-6 py-3 text-white transition bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 hover:shadow-lg"
+            className="px-6 py-3 text-white transition rounded-lg shadow-md bg-[#581C87] hover:bg-[#9333EA]"
           >
             Continue Shopping
           </button>
         </div>
       ) : (
         <div className="flex flex-col gap-8 lg:flex-row">
-          {/* ✅ Cart Items */}
+          {/* Cart Items */}
           <div className="w-full overflow-hidden bg-white border border-gray-100 shadow-sm lg:w-2/3 rounded-xl">
             <div className="p-6 border-b border-gray-100">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-800">Your Items ({cart.length})</h2>
+                <h2 className="text-xl font-semibold text-[#1F2937]">Your Items ({cart.length})</h2>
                 <button
                   onClick={() => router.push('/shop')}
-                  className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                  className="text-sm font-medium text-[#9333EA] hover:text-[#581C87]"
                 >
                   Continue Shopping
                 </button>
               </div>
             </div>
 
-            <div className="hidden grid-cols-12 gap-4 p-6 text-sm font-medium tracking-wider text-gray-500 uppercase md:grid bg-gray-50">
+            <div className="hidden grid-cols-12 gap-4 p-6 text-sm font-medium tracking-wider text-gray-500 uppercase md:grid bg-[#F3E8FF]">
               <div className="col-span-5">Product</div>
               <div className="col-span-3 text-center">Quantity</div>
               <div className="col-span-2 text-right">Total</div>
@@ -76,7 +72,7 @@ export default function CartPage() {
             {cart.map((item) => (
               <div
                 key={item.id}
-                className="grid grid-cols-1 gap-4 p-6 transition border-b border-gray-100 md:grid-cols-12 last:border-0 hover:bg-gray-50"
+                className="grid grid-cols-1 gap-4 p-6 transition border-b border-gray-100 md:grid-cols-12 last:border-0 hover:bg-[#F3E8FF]"
               >
                 <div className="flex items-center col-span-5 gap-4">
                   <div className="relative w-20 h-20 overflow-hidden bg-gray-100 rounded-lg">
@@ -88,7 +84,7 @@ export default function CartPage() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-800">{item.name}</h3>
+                    <h3 className="font-medium text-[#1F2937]">{item.name}</h3>
                     <p className="text-sm text-gray-500">Rs.{item.price.toFixed(2)} per item</p>
                   </div>
                 </div>
@@ -98,14 +94,14 @@ export default function CartPage() {
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       disabled={item.quantity <= 1}
-                      className="px-3 py-1 transition bg-gray-100 hover:bg-gray-200 disabled:opacity-40"
+                      className="px-3 py-1 transition bg-[#FAF5FF] hover:bg-[#EDE9FE] disabled:opacity-40"
                     >
                       −
                     </button>
                     <span className="w-12 px-4 text-center">{item.quantity}</span>
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      className="px-3 py-1 transition bg-gray-100 hover:bg-gray-200"
+                      className="px-3 py-1 transition bg-[#FAF5FF] hover:bg-[#EDE9FE]"
                     >
                       ＋
                     </button>
@@ -113,7 +109,9 @@ export default function CartPage() {
                 </div>
 
                 <div className="flex items-center col-span-2 md:justify-end">
-                  <span className="font-medium">Rs.{(item.price * item.quantity).toFixed(2)}</span>
+                  <span className="font-medium text-[#1F2937]">
+                    Rs.{(item.price * item.quantity).toFixed(2)}
+                  </span>
                 </div>
 
                 <div className="flex items-center col-span-2 md:justify-end">
@@ -131,40 +129,40 @@ export default function CartPage() {
             ))}
           </div>
 
-          {/* ✅ Order Summary */}
+          {/* Order Summary */}
           <div className="w-full lg:w-1/3">
             <div className="sticky p-6 bg-white border border-gray-100 shadow-sm rounded-xl top-6">
-              <h2 className="mb-6 text-xl font-semibold text-gray-800">Order Summary</h2>
+              <h2 className="mb-6 text-xl font-semibold text-[#1F2937]">Order Summary</h2>
 
               <div className="mb-6 space-y-4">
                 {cart.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
                     <div>
-                      <p className="font-medium text-gray-700">{item.name}</p>
+                      <p className="font-medium text-[#1F2937]">{item.name}</p>
                       <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
                     </div>
-                    <div className="font-medium text-right text-gray-800">
+                    <div className="font-medium text-right text-[#1F2937]">
                       Rs.{(item.price * item.quantity).toFixed(2)}
                     </div>
                   </div>
                 ))}
 
                 <div className="flex justify-between pt-4 border-t border-gray-300">
-                  <span className="font-semibold text-gray-800">Total</span>
-                  <span className="text-lg font-bold text-gray-800">Rs.{total.toFixed(2)}</span>
+                  <span className="font-semibold text-[#1F2937]">Total</span>
+                  <span className="text-lg font-bold text-[#1F2937]">Rs.{total.toFixed(2)}</span>
                 </div>
-              </div> 
-              
+              </div>
+
               {/* ✅ Checkout Button */}
               <button
                 onClick={() => {
                   localStorage.setItem('cart', JSON.stringify(cart));
                   router.push('/checkout');
                 }}
-                className="w-full py-3 mb-4 font-medium text-white transition rounded-lg shadow-md bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 hover:shadow-lg"
+                className="w-full py-3 mb-4 font-medium text-white transition rounded-lg shadow-md bg-[#581C87] hover:bg-[#9333EA]"
               >
                 Proceed to Checkout
-              </button> 
+              </button>
 
               <div className="flex items-center justify-center text-sm text-gray-500">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

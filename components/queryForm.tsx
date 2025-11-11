@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import emailjs from 'emailjs-com';
+import { useState } from "react";
+import emailjs from "emailjs-com";
 
 const QueryForm = () => {
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
   const handleChange = (
@@ -20,15 +20,14 @@ const QueryForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Basic email validation
-    if (!form.email.includes('@')) {
-      alert('Please enter a valid email address.');
+    if (!form.email.includes("@")) {
+      alert("Please enter a valid email address.");
       return;
     }
 
-    const serviceID = 'service_mzsfb3h';
-    const templateID = 'template_ur857gv';
-    const publicKey = 'exxQgPcdw5t9qRTTc';
+    const serviceID = "service_mzsfb3h";
+    const templateID = "template_ur857gv";
+    const publicKey = "exxQgPcdw5t9qRTTc";
 
     const templateParams = {
       from_name: form.name,
@@ -37,95 +36,131 @@ const QueryForm = () => {
       message: form.message,
     };
 
-    emailjs.send(serviceID, templateID, templateParams, publicKey)
+    emailjs
+      .send(serviceID, templateID, templateParams, publicKey)
       .then(() => {
-        alert('Message submitted successfully!');
-        setForm({ name: '', email: '', phone: '', message: '' });
+        alert("Message submitted successfully!");
+        setForm({ name: "", email: "", phone: "", message: "" });
       })
       .catch((error) => {
-        console.error('EmailJS Error:', error);
-        alert('Failed to send message. Please try again later.');
+        console.error("EmailJS Error:", error);
+        alert("Failed to send message. Please try again later.");
       });
   };
 
   return (
-    <section className="relative bg-white py-16 px-4">
-      {/* Optional Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
-        style={{ backgroundImage: `url('/your-bg.jpg')` }}
-      />
+    <section className="relative bg-gradient-to-tr from-[#FAF5FF] to-[#EDE9FE] py-20 px-4">
+      {/* Container Card */}
+      <div className="relative z-10 max-w-3xl p-10 mx-auto shadow-xl bg-white/90 backdrop-blur-lg rounded-2xl">
+        {/* Headings */}
+        <div className="mb-10 text-center">
+          <p className="text-[#9333EA] text-sm font-medium">🟣 Let’s Talk</p>
+          <h2 className="text-3xl font-bold text-[#1F2937]">
+            Got a <span className="text-[#581C87]">Question</span>?
+          </h2>
+          <p className="text-[#6B7280] mt-2 text-sm">
+            Fill the form below and our team will get back to you shortly.
+          </p>
+        </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto bg-gray-100 p-8 rounded-lg shadow-md">
-        <p className="text-center text-sm text-green-600 font-medium">🟢 For More Query</p>
-        <h2 className="text-center text-2xl md:text-3xl font-bold mb-8">
-          Have Any Other <span className="text-yellow-500">Question</span>?
-        </h2>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name, Email, Phone */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="flex items-center border bg-white px-3 rounded">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {/* Name */}
+            <div className="relative">
               <input
                 type="text"
                 name="name"
-                placeholder="Your Name"
                 value={form.name}
                 onChange={handleChange}
-                className="w-full p-2 outline-none text-sm"
+                placeholder=" "
                 required
+                className="peer w-full bg-white border border-gray-300 rounded-md px-4 pt-5 pb-2 text-sm text-[#1F2937] outline-none focus:border-[#9333EA] focus:ring-1 focus:ring-[#9333EA]"
               />
-              <span>👤</span>
+              <label
+                htmlFor="name"
+                className="absolute left-4 top-2 text-sm text-[#6B7280] transition-all
+                  peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
+                  peer-focus:top-2 peer-focus:text-sm"
+              >
+                Your Name
+              </label>
             </div>
 
-            <div className="flex items-center border bg-white px-3 rounded">
+            {/* Email */}
+            <div className="relative">
               <input
                 type="email"
                 name="email"
-                placeholder="Your Email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full p-2 outline-none text-sm"
+                placeholder=" "
                 required
+                className="peer w-full bg-white border border-gray-300 rounded-md px-4 pt-5 pb-2 text-sm text-[#1F2937] outline-none focus:border-[#9333EA] focus:ring-1 focus:ring-[#9333EA]"
               />
-              <span>✉️</span>
+              <label
+                htmlFor="email"
+                className="absolute left-4 top-2 text-sm text-[#6B7280] transition-all
+                  peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
+                  peer-focus:top-2 peer-focus:text-sm"
+              >
+                Your Email
+              </label>
             </div>
 
-            <div className="flex items-center border bg-white px-3 rounded">
+            {/* Phone */}
+            <div className="relative">
               <input
                 type="tel"
                 name="phone"
-                placeholder="Mobile Number"
                 value={form.phone}
                 onChange={handleChange}
-                className="w-full p-2 outline-none text-sm"
+                placeholder=" "
                 required
+                className="peer w-full bg-white border border-gray-300 rounded-md px-4 pt-5 pb-2 text-sm text-[#1F2937] outline-none focus:border-[#9333EA] focus:ring-1 focus:ring-[#9333EA]"
               />
-              <span>📞</span>
+              <label
+                htmlFor="phone"
+                className="absolute left-4 top-2 text-sm text-[#6B7280] transition-all
+                  peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-base
+                  peer-focus:top-2 peer-focus:text-sm"
+              >
+                Mobile Number
+              </label>
             </div>
           </div>
 
           {/* Message */}
-          <div className="flex items-start border bg-white px-3 rounded">
+          <div className="relative">
             <textarea
               name="message"
-              placeholder="Your Message"
               value={form.message}
               onChange={handleChange}
+              placeholder=" "
               rows={4}
-              className="w-full p-2 outline-none text-sm resize-none"
               required
+              className="peer w-full bg-white border border-gray-300 rounded-md px-4 pt-6 pb-2 text-sm text-[#1F2937] outline-none focus:border-[#9333EA] focus:ring-1 focus:ring-[#9333EA] resize-none"
             />
-            <span className="pt-2">🖊️</span>
+            <label
+              htmlFor="message"
+              className="absolute left-4 top-3 text-sm text-[#6B7280] transition-all
+                peer-placeholder-shown:top-5 peer-placeholder-shown:text-base
+                peer-focus:top-3 peer-focus:text-sm"
+            >
+              Your Message
+            </label>
           </div>
 
           {/* Submit */}
-          <button
-            type="submit"
-            className="bg-green-800 text-white px-6 py-2 rounded hover:bg-green-900 transition text-sm w-full sm:w-auto"
-          >
-            Submit
-          </button>
+          <div className="text-center">
+            <button
+              type="submit"
+              className="bg-[#581C87] hover:bg-[#9333EA] text-white px-8 py-3 rounded-full shadow-md transition-all hover:scale-105 text-sm font-medium"
+            >
+              Submit Query
+            </button>
+          </div>
         </form>
       </div>
     </section>

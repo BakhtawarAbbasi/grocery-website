@@ -19,7 +19,7 @@ export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
   const { addToCart } = useCart();
-  const [showMessage, setShowMessage] = useState(false); // ✅ New State for success message
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -55,16 +55,16 @@ export default function ShopPage() {
   return (
     <main className="pb-16 space-y-16">
       {/* Hero Section */}
-      <section className="relative overflow-hidden text-white bg-gradient-to-r from-green-800 to-green-600">
+      <section className="relative overflow-hidden text-white bg-gradient-to-r from-[#581C87] to-[#9333EA]">
         <div className="container flex flex-col items-center justify-between gap-10 px-6 py-16 mx-auto md:py-24 md:flex-row">
           <div className="z-10 flex-1 space-y-6">
             <h1 className="text-4xl font-bold leading-tight md:text-5xl">
               HEALTHY AND FRESH <span className="text-yellow-300">GROCERY</span>
             </h1>
-            <p className="max-w-lg text-lg text-green-100">
+            <p className="max-w-lg text-lg text-purple-100">
               We pride ourselves on providing a curated selection of the finest, nutrient-rich products that cater to your health-conscious lifestyle.
             </p>
-            <button className="px-6 py-3 mt-4 font-bold text-green-900 transition duration-300 transform bg-yellow-400 rounded-full shadow-lg hover:bg-yellow-300 hover:scale-105">
+            <button className="px-6 py-3 mt-4 font-bold text-[#581C87] transition duration-300 transform bg-yellow-400 rounded-full shadow-lg hover:bg-yellow-300 hover:scale-105">
               Shop Now
             </button>
           </div>
@@ -84,7 +84,7 @@ export default function ShopPage() {
       {/* Category Section */}
       <section className="container px-6 mx-auto space-y-8 text-center md:px-20">
         <div className="space-y-2">
-          <h2 className="text-3xl font-bold text-gray-800">Shop By Category</h2>
+          <h2 className="text-3xl font-bold text-[#1F2937]">Shop By Category</h2>
           <p className="max-w-2xl mx-auto text-gray-600">
             Discover our wide range of fresh and healthy products
           </p>
@@ -98,11 +98,11 @@ export default function ShopPage() {
               }
               className={`flex flex-col items-center p-4 rounded-xl w-full transition-all duration-300 ${
                 activeCategory === cat.value
-                  ? 'bg-green-100 border-2 border-green-500'
-                  : 'bg-white hover:bg-green-50 border border-gray-200'
+                  ? 'bg-[#F3E8FF] border-2 border-[#9333EA]'
+                  : 'bg-white hover:bg-[#FAF5FF] border border-gray-200'
               }`}
             >
-              <div className="p-3 mb-3 bg-green-100 rounded-full">
+              <div className="p-3 mb-3 bg-[#F3E8FF] rounded-full">
                 <Image
                   src={cat.img}
                   alt="image"
@@ -111,7 +111,7 @@ export default function ShopPage() {
                   className="object-cover w-12 h-12 rounded-full md:w-14 md:h-14"
                 />
               </div>
-              <p className="font-semibold text-gray-800">{cat.name}</p>
+              <p className="font-semibold text-[#1F2937]">{cat.name}</p>
             </button>
           ))}
         </div>
@@ -120,7 +120,7 @@ export default function ShopPage() {
           <div className="mt-4 text-center">
             <button
               onClick={() => setActiveCategory(null)}
-              className="text-sm text-green-700 underline transition hover:text-green-900"
+              className="text-sm text-[#581C87] underline transition hover:text-[#4B1B7C]"
             >
               Clear Filter
             </button>
@@ -131,7 +131,7 @@ export default function ShopPage() {
       {/* Featured Products Section */}
       <section className="container px-6 mx-auto md:px-20">
         <div className="mb-10 space-y-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-800">Featured Products</h2>
+          <h2 className="text-3xl font-bold text-[#1F2937]">Featured Products</h2>
           <p className="max-w-2xl mx-auto text-gray-600">
             Fresh and organic products delivered to your doorstep
           </p>
@@ -173,9 +173,9 @@ export default function ShopPage() {
                       />
                     </div>
                     <div className="p-4 space-y-2">
-                      <h3 className="text-lg font-bold text-gray-800">{product.productName}</h3>
+                      <h3 className="text-lg font-bold text-[#1F2937]">{product.productName}</h3>
                       <div className="flex items-center justify-between">
-                        <span className="text-xl font-bold text-green-700">
+                        <span className="text-xl font-bold text-[#581C87]">
                           ${product.price}
                         </span>
                         <span className="flex text-yellow-400">
@@ -204,7 +204,7 @@ export default function ShopPage() {
                           setShowMessage(true);
                           setTimeout(() => setShowMessage(false), 3000);
                         }}
-                        className="flex items-center justify-center w-full px-4 py-2 mt-4 space-x-2 font-semibold text-white transition duration-300 bg-green-400 rounded-lg hover:bg-green-600"
+                        className="flex items-center justify-center w-full px-4 py-2 mt-4 space-x-2 font-semibold text-white transition duration-300 bg-[#9333EA] rounded-lg hover:bg-[#7E22CE]"
                       >
                         <svg
                           className="w-5 h-5"
@@ -230,7 +230,7 @@ export default function ShopPage() {
               <div className="mt-8 text-center">
                 <button
                   onClick={() => setShowAll(true)}
-                  className="px-6 py-2 font-semibold text-white transition bg-green-600 rounded hover:bg-green-700"
+                  className="px-6 py-2 font-semibold text-white transition bg-[#581C87] rounded hover:bg-[#4B1B7C]"
                 >
                   View All Products
                 </button>
@@ -242,7 +242,7 @@ export default function ShopPage() {
 
       {/* ✅ Toast Message */}
       {showMessage && (
-        <div className="fixed z-50 px-4 py-2 text-white transition-opacity duration-300 bg-green-600 rounded-lg shadow-lg bottom-5 right-5">
+        <div className="fixed z-50 px-4 py-2 text-white transition-opacity duration-300 bg-[#581C87] rounded-lg shadow-lg bottom-5 right-5">
           ✅ Your item has been added to cart!
         </div>
       )}

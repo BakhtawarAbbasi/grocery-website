@@ -1,19 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/footer";
 import { CartProvider } from "@/context/CartContext"; 
+import { ClerkProvider } from '@clerk/nextjs'
+import WhatsAppButton from "@/components/WhatsappButton";
 import Navbar from "@/components/Navbar";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import ChatbotButton from "@/components/chatButton";
 
 export const metadata: Metadata = {
   title: "Grocerry Store",
@@ -26,14 +18,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body>
         <CartProvider> 
           <Navbar />
           {children}
+          <ChatbotButton/>
+          <WhatsAppButton/>
           <Footer />
         </CartProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 
-const tabs = ['Trending', 'Fish & Meat', 'Organic'] as const;
+const tabs = ['Trending'] as const;
 type Tab = (typeof tabs)[number];
 
 interface Product {
@@ -22,7 +22,7 @@ const TrendingSection = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const { addToCart } = useCart();
   const [showSuccess, setShowSuccess] = useState(false);
-  const router = useRouter(); 
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -63,30 +63,31 @@ const TrendingSection = () => {
   };
 
   const goToDetailPage = (productId: number) => {
-    router.push(`/product/${productId}`); 
+    router.push(`/product/${productId}`);
   };
 
   return (
-    <section className="py-12 px-4 md:px-20 lg:px-40 relative">
+    <section className="py-12 px-4 md:px-20 lg:px-40 relative bg-[#FAF5FF]">
       {showSuccess && (
-        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 py-2 rounded shadow-lg z-50 transition-all">
+        <div className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-[#581C87] text-white px-4 py-2 rounded shadow-lg z-50 transition-all">
           ✅ Product added to cart successfully!
         </div>
       )}
 
-      <div className="text-center mb-10">
-        <p className="text-green-600 text-sm font-semibold">🍀 Our Products</p>
-        <h2 className="text-3xl font-bold text-gray-800">Trending Products</h2>
+      <div className="mb-10 text-center">
+        <p className="text-[#9333EA] text-sm font-semibold">🍀 Our Products</p>
+        <h2 className="text-3xl font-bold text-[#1F2937]">Trending Products</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-start">
-        <div className="bg-black text-white p-6 rounded-xl min-h-[350px] relative overflow-hidden flex flex-col">
+      <div className="grid items-start grid-cols-1 gap-6 md:grid-cols-4">
+        {/* Promo Card */}
+        <div className="bg-[#581C87] text-white p-6 rounded-xl min-h-[350px] relative overflow-hidden flex flex-col">
           <div>
-            <p className="text-sm mb-2 text-yellow-500">Get 20% Discount</p>
-            <h3 className="text-lg font-bold mb-4 leading-tight">
+            <p className="mb-2 text-sm text-yellow-300">Get 20% Discount</p>
+            <h3 className="mb-4 text-lg font-bold leading-tight">
               Online grocery <br /> shopping is thriving
             </h3>
-            <button className="bg-yellow-500 mx-auto text-center text-black font-sm px-2 py-1 rounded-md hover:bg-yellow-500">
+            <button className="px-2 py-1 mx-auto text-center text-black bg-yellow-400 rounded-md font-sm hover:bg-yellow-500">
               View All
             </button>
           </div>
@@ -95,13 +96,15 @@ const TrendingSection = () => {
             alt="Promo"
             width={400}
             height={400}
-            className="absolute bottom-0 right-0 w-full h-full object-cover opacity-25 rounded-xl"
+            className="absolute bottom-0 right-0 object-cover w-full h-full opacity-20 rounded-xl"
           />
         </div>
 
-        <div className="md:col-span-3 space-y-6">
+        {/* Product Tabs and Cards */}
+        <div className="space-y-6 md:col-span-3">
+          {/* Tabs and Arrows */}
           <div className="flex items-center justify-between">
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex flex-wrap gap-4">
               {tabs.map((tab) => (
                 <button
                   key={tab}
@@ -111,8 +114,8 @@ const TrendingSection = () => {
                   }}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition ${
                     activeTab === tab
-                      ? 'bg-green-800 text-white'
-                      : 'bg-white border text-gray-700'
+                      ? 'bg-[#581C87] text-white'
+                      : 'bg-white border border-[#581C87] text-[#581C87]'
                   }`}
                 >
                   {tab}
@@ -136,37 +139,41 @@ const TrendingSection = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {/* Product Cards */}
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
             {products.slice(startIndex, startIndex + 3).map((product) => (
               <div
                 key={product.id}
-                className="bg-white border border-yellow-100 shadow rounded-xl p-4 hover:shadow-md transition"
+                className="p-4 transition bg-white border border-purple-100 shadow rounded-xl hover:shadow-md"
               >
-                <span className="bg-yellow-100 text-green-800 text-xs font-bold px-2 py-1 rounded mb-2 inline-block">
+                <span className="bg-purple-100 text-[#581C87] text-xs font-bold px-2 py-1 rounded mb-2 inline-block">
                   Sale
                 </span>
 
-                {/*  Image */}
+                {/* Image */}
                 <div
-                  className="h-32 flex justify-center items-center mb-4 cursor-pointer"
+                  className="flex items-center justify-center h-32 mb-4 cursor-pointer"
                   onClick={() => goToDetailPage(product.id)}
                 >
                   <Image
                     src={`https://api-for-ecommerce-website.onrender.com${product.image}`}
-                    alt="product imgae"
-                    width={100}
-                    height={100}
+                    alt={product.productName}
+                    width={300}
+                    height={300}
                     className="object-contain"
                   />
                 </div>
 
+                <h4 className="text-md font-semibold mb-1 text-[#1F2937]">
+                  {product.productName}
+                </h4>
 
-                <h4 className="text-md font-semibold mb-1">{product.productName}</h4>
-                
-                {/* price */}
+                {/* Price */}
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-green-700 font-bold">{product.price}</span>
-                  <span className="line-through text-sm text-gray-400">{product.oldPrice}</span>
+                  <span className="text-[#581C87] font-bold">{product.price}</span>
+                  <span className="text-sm text-gray-400 line-through">
+                    {product.oldPrice}
+                  </span>
                 </div>
 
                 {/* Stars */}
@@ -185,9 +192,10 @@ const TrendingSection = () => {
                   ))}
                 </div>
 
+                {/* Add to Cart */}
                 <button
                   onClick={() => handleAddToCart(product)}
-                  className="mt-2 w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 transition"
+                  className="mt-2 w-full bg-[#581C87] text-white py-2 rounded hover:bg-purple-800 transition"
                 >
                   🛒 Add to Cart
                 </button>

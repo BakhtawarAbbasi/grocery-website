@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import Image from 'next/image';
+import React, { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
+import Image from "next/image";
 
 interface FAQItem {
   question: string;
@@ -11,74 +11,83 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: 'Has the food undergone lab testing for taste evaluation?',
-    answer: '',
+    question: "Has the food undergone lab testing for taste evaluation?",
+    answer: "Yes, the food has undergone rigorous lab testing to ensure both taste and quality standards are met consistently.",
   },
   {
-    question: 'What are the advantages of making an advance payment?',
+    question: "What are the advantages of making an advance payment?",
     answer:
-      'Khadi Natural Herbal: Oil – A rejuvenating blend of essential oils and botanical extracts for nourished, radiant skin. Indulge in the goodness of nature for a blissful aromatherapy experience.',
+      "Advance payments secure your booking, enable priority service, and help us streamline the delivery process efficiently.",
   },
   {
-    question: 'Has the food undergone lab testing for taste evaluation?',
-    answer: '',
+    question: "How soon can we get emergency delivery?",
+    answer:
+      "We aim to deliver within 30–45 minutes depending on your location. Emergency dispatch is available 24/7.",
   },
   {
-    question: 'Has the food undergone lab testing for taste evaluation?',
-    answer: '',
+    question: "Are your staff members medically trained?",
+    answer:
+      "Yes, our team consists of certified and trained professionals with emergency response experience.",
   },
 ];
 
 const FAQSection: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(1);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
-    <section className="bg-white py-16 px-4 md:px-24">
-
-      {/* Top Headings */}
-      <div className="text-center mb-12">
-        <p className="text-green-600 font-semibold text-lg mb-2">Faq’s</p>
-        <h2 className="text-3xl md:text-4xl font-bold">Frequently asked questions</h2>
+    <section className="bg-[#FAF5FF] py-20 px-4 md:px-24">
+      {/* Heading */}
+      <div className="mb-12 text-center">
+        <p className="text-[#9333EA] font-semibold text-lg mb-2">FAQs</p>
+        <h2 className="text-3xl md:text-4xl font-bold text-[#1F2937]">
+          Frequently Asked Questions
+        </h2>
       </div>
 
-      {/* Grid: Left Image & Right FAQs */}
-
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-start gap-10">
+      {/* Grid */}
+      <div className="grid items-start gap-12 mx-auto max-w-7xl md:grid-cols-2">
         {/* Left Image */}
-        <div className="flex justify-center">
+        <div className="flex justify-center md:justify-end">
           <Image
-            src="/images/faq.PNG" 
+            src="/images/FAQ.jpg"
             alt="FAQ Illustration"
             width={500}
             height={500}
-            className="w-full h-auto max-w-md"
+            className="object-contain w-full max-w-sm shadow-xl rounded-xl"
           />
         </div>
 
-        {/* Right Accordion */}
+        {/* Right FAQ List */}
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border rounded-md overflow-hidden">
+            <div
+              key={index}
+              className="overflow-hidden transition-all bg-white shadow-md rounded-xl"
+            >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center px-2 py-4 bg-gray-100 hover:bg-gray-200 transition"
+                className="w-full flex justify-between items-center px-5 py-4 text-left hover:bg-[#EDE9FE] transition duration-300"
               >
-                <span className="text-left text-gray-800 font-medium">{faq.question}</span>
-                {openIndex === index ? (
-                  <FaChevronUp className="text-green-900" />
-                ) : (
-                  <FaChevronDown className="text-green-900" />
-                )}
+                <span className="text-[#1F2937] font-semibold">{faq.question}</span>
+                <FaChevronDown
+                  className={`text-[#9333EA] transform transition-transform duration-300 ${
+                    openIndex === index ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-              {openIndex === index && faq.answer && (
-                <div className="px-6 py-4 text-sm text-gray-600 bg-white">
-                  {faq.answer}
-                </div>
-              )}
+
+              {/* Answer Section */}
+              <div
+                className={`px-5 text-[#4B5563] text-sm leading-relaxed overflow-hidden transition-all duration-300 ${
+                  openIndex === index ? "max-h-96 py-4" : "max-h-0"
+                }`}
+              >
+                {faq.answer}
+              </div>
             </div>
           ))}
         </div>
